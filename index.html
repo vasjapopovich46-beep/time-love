@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наш Таймер</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Стилі для фонового слайдера */
+        .background-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #000;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out; /* Плавний перехід у 1.5 секунди */
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Напівпрозорий шар для читабельності тексту поверх фото */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        #timer {
+            font-size: 2.2em;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px 40px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 90%;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Фоновий слайдер -->
+    <div class="background-slider">
+        <div class="slide active" style="background-image: url('5789907354765084160_121.jpg');"></div>
+        <div class="slide" style="background-image: url('5789907354765084165_121.jpg');"></div>
+        <div class="slide" style="background-image: url('IMG_20250420_090924_955.JPG');"></div>
+        <div class="slide" style="background-image: url('IMG_20250420_090942_442.JPG');"></div>
+        <div class="slide" style="background-image: url('IMG_20260128_084242_031.jpg');"></div>
+        <div class="slide" style="background-image: url('IMG_20260128_084245_247.jpg');"></div>
+        <div class="slide" style="background-image: url('IMG_20260128_084847_734.jpg');"></div>
+        <div class="slide" style="background-image: url('IMG_20260128_090030_703.jpg');"></div>
+        <div class="slide" style="background-image: url('IMG_20260128_090226_373.JPG');"></div>
+        <div class="slide" style="background-image: url('IMG_20260128_090627_041.jpg');"></div>
+        <div class="slide" style="background-image: url('IMG_20260310_113333_379.jpg');"></div>
+    </div>
+    <div class="overlay"></div>
+
+    <h1>Ми разом вже:</h1>
+    <div id="timer"></div>
+
+    <script>
+        // Скрипт для роботи таймера
+        function updateTimer() {
+            const start = new Date(2023, 7, 22, 20, 0, 0); // 22 серпня 2023 року, 20:00
+            const now = new Date();
+            const diff = now - start;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById("timer").innerHTML = 
+                days + " днів, " + hours + " годин, " + minutes + " хвилин, " + seconds + " секунд";
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // Скрипт для зміни фонових зображень слайдера
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        const slideInterval = 5000; // Зміна фото кожні 5 секунд (5000 мілісекунд)
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, slideInterval);
+    </script>
+</body>
+</html>

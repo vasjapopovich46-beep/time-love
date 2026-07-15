@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ми разом ❤️</title>
 <style>
-html,body{margin:0;height:100%;overflow:hidden;font-family:Arial,sans-serif;background:#000}
-#blur,#photo{position:fixed;inset:0;transition:opacity 1s}
-#blur{background:center/cover no-repeat;filter:blur(18px) brightness(.5);transform:scale(1.1)}
-#photo{background:center center/contain no-repeat}
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.2)}
-.panel{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);
-background:rgba(255,255,255,.15);backdrop-filter:blur(15px);
-padding:24px;border-radius:22px;color:#fff;text-align:center;width:min(92%,700px)}
-h1{margin:0 0 18px;font-size:2rem}
-.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.box{background:rgba(255,255,255,.15);padding:12px 18px;border-radius:14px;min-width:90px}
-.num{font-size:1.8rem;font-weight:bold}
-.heart{position:fixed;color:#ff7aa8;animation:fall linear forwards;opacity:.7}
-@keyframes fall{from{transform:translateY(-10vh)}to{transform:translateY(110vh)}}
-</style></head><body>
-<div id="blur"></div><div id="photo"></div><div id="overlay"></div>
-<div class="panel"><h1>❤️ Ми разом вже:</h1>
+html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:Arial,sans-serif}
+#blur,#bgimg{position:fixed;inset:0}
+#blur{background:center/cover no-repeat;filter:blur(25px) brightness(.45);transform:scale(1.1)}
+#bgimg{display:flex;justify-content:center;align-items:center}
+#bgimg img{max-width:100%;max-height:100%;object-fit:contain}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.15)}
+.panel{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);
+width:min(92%,700px);background:rgba(255,255,255,.15);backdrop-filter:blur(14px);
+border-radius:22px;padding:22px;color:#fff;text-align:center}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.box{background:rgba(255,255,255,.15);padding:12px 16px;border-radius:14px;min-width:90px}
+.num{font-size:28px;font-weight:bold}
+</style></head>
+<body>
+<div id="blur"></div>
+<div id="bgimg"><img id="photo"></div>
+<div id="overlay"></div>
+<div class="panel">
+<h1>❤️ Ми разом вже:</h1>
 <div class="row">
-<div class="box"><div id="d" class="num"></div>днів</div>
-<div class="box"><div id="h" class="num"></div>годин</div>
-<div class="box"><div id="m" class="num"></div>хвилин</div>
-<div class="box"><div id="s" class="num"></div>секунд</div>
+<div class="box"><div class="num" id="d"></div>днів</div>
+<div class="box"><div class="num" id="h"></div>годин</div>
+<div class="box"><div class="num" id="m"></div>хвилин</div>
+<div class="box"><div class="num" id="s"></div>секунд</div>
 </div></div>
 <script>
 const photos=["IMG_20260128_084242_031.jpg","IMG_20260128_084245_247.jpg","IMG_20260128_084847_734.jpg","IMG_20260128_090030_703.jpg","IMG_20260128_090226_373.JPG","IMG_20260128_090627_041.jpg","IMG_20260310_113333_379.jpg","IMG_20250420_090924_955.JPG","IMG_20250420_090942_442.JPG","5789907354765084160_121.jpg","5789907354765084165_121.jpg"];
-let i=0;
-function show(){let p="url('"+photos[i]+"')";blur.style.backgroundImage=p;photo.style.backgroundImage=p;i=(i+1)%photos.length;}
+let i=0;const img=document.getElementById('photo'),blur=document.getElementById('blur');
+function show(){img.src=photos[i];blur.style.backgroundImage=`url('${photos[i]}')`;i=(i+1)%photos.length;}
+img.onload=()=>{};
 show();setInterval(show,5000);
 const start=new Date(2023,6,22,20,0,0);
-function tick(){let x=Date.now()-start;let D=Math.floor(x/864e5);x%=864e5;let H=Math.floor(x/36e5);x%=36e5;let M=Math.floor(x/6e4);x%=6e4;let S=Math.floor(x/1e3);
+function tick(){let x=Date.now()-start.getTime();let D=Math.floor(x/86400000);x%=86400000;let H=Math.floor(x/3600000);x%=3600000;let M=Math.floor(x/60000);x%=60000;let S=Math.floor(x/1000);
 d.textContent=D;h.textContent=H;m.textContent=M;s.textContent=S;}
 tick();setInterval(tick,1000);
-setInterval(()=>{let e=document.createElement("div");e.className="heart";e.textContent="❤";e.style.left=Math.random()*100+"vw";e.style.fontSize=(12+Math.random()*16)+"px";e.style.animationDuration=(5+Math.random()*5)+"s";document.body.appendChild(e);setTimeout(()=>e.remove(),10000);},700);
 </script></body></html>

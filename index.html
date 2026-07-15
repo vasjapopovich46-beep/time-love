@@ -1,43 +1,27 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ми разом ❤️</title>
+<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>❤️ Ми разом</title>
 <style>
-html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:Arial,sans-serif}
-#blur,#bgimg{position:fixed;inset:0}
-#blur{background:center/cover no-repeat;filter:blur(25px) brightness(.45);transform:scale(1.1)}
-#bgimg{display:flex;justify-content:center;align-items:center}
-#bgimg img{max-width:100%;max-height:100%;object-fit:contain}
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.15)}
-.panel{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);
-width:min(92%,700px);background:rgba(255,255,255,.15);backdrop-filter:blur(14px);
-border-radius:22px;padding:22px;color:#fff;text-align:center}
-.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.box{background:rgba(255,255,255,.15);padding:12px 16px;border-radius:14px;min-width:90px}
-.num{font-size:28px;font-weight:bold}
-</style></head>
-<body>
-<div id="blur"></div>
-<div id="bgimg"><img id="photo"></div>
-<div id="overlay"></div>
-<div class="panel">
-<h1>❤️ Ми разом вже:</h1>
-<div class="row">
-<div class="box"><div class="num" id="d"></div>днів</div>
-<div class="box"><div class="num" id="h"></div>годин</div>
-<div class="box"><div class="num" id="m"></div>хвилин</div>
-<div class="box"><div class="num" id="s"></div>секунд</div>
+html,body{margin:0;height:100%;overflow:hidden;background:#000;font-family:system-ui,Arial}
+#bg,#blur{position:fixed;inset:0;transition:opacity .8s}
+#bg{display:flex;align-items:center;justify-content:center;z-index:2}
+#bg img{max-width:100%;max-height:100%;object-fit:contain}
+#blur{background:center/cover no-repeat;filter:blur(28px) brightness(.35);transform:scale(1.08);z-index:1}
+#shade{position:fixed;inset:0;background:rgba(0,0,0,.18);z-index:3}
+.panel{position:fixed;left:50%;bottom:25px;transform:translateX(-50%);z-index:4;width:min(92%,720px);padding:24px;border-radius:24px;background:rgba(255,255,255,.16);backdrop-filter:blur(18px);color:#fff;text-align:center}
+.row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.box{background:rgba(255,255,255,.14);padding:12px 18px;border-radius:16px;min-width:95px}.num{font-size:30px;font-weight:700}
+</style></head><body>
+<div id="blur"></div><div id="bg"><img id="img"></div><div id="shade"></div>
+<div class="panel"><h1>❤️ Ми разом вже:</h1><div class="row">
+<div class="box"><div id="d" class="num"></div>днів</div>
+<div class="box"><div id="h" class="num"></div>годин</div>
+<div class="box"><div id="m" class="num"></div>хвилин</div>
+<div class="box"><div id="s" class="num"></div>секунд</div>
 </div></div>
 <script>
-const photos=["IMG_20260128_084242_031.jpg","IMG_20260128_084245_247.jpg","IMG_20260128_084847_734.jpg","IMG_20260128_090030_703.jpg","IMG_20260128_090226_373.JPG","IMG_20260128_090627_041.jpg","IMG_20260310_113333_379.jpg","IMG_20250420_090924_955.JPG","IMG_20250420_090942_442.JPG","5789907354765084160_121.jpg","5789907354765084165_121.jpg"];
-let i=0;const img=document.getElementById('photo'),blur=document.getElementById('blur');
-function show(){img.src=photos[i];blur.style.backgroundImage=`url('${photos[i]}')`;i=(i+1)%photos.length;}
-img.onload=()=>{};
+const photos=["5789907354765084160_121.jpg","5789907354765084165_121.jpg","IMG_20250420_090924_955.JPG","IMG_20250420_090942_442.JPG","IMG_20260128_084242_031.jpg","IMG_20260128_084245_247.jpg","IMG_20260128_084847_734.jpg","IMG_20260128_090030_703.jpg","IMG_20260128_090226_373.JPG","IMG_20260128_090627_041.jpg","IMG_20260310_113333_379.jpg"];
+let i=0;const im=document.getElementById('img'),bl=document.getElementById('blur');
+function show(){const p="./"+photos[i];im.src=p;bl.style.backgroundImage="url('"+p+"')";i=(i+1)%photos.length}
 show();setInterval(show,5000);
-const start=new Date(2023,6,22,20,0,0);
-function tick(){let x=Date.now()-start.getTime();let D=Math.floor(x/86400000);x%=86400000;let H=Math.floor(x/3600000);x%=3600000;let M=Math.floor(x/60000);x%=60000;let S=Math.floor(x/1000);
-d.textContent=D;h.textContent=H;m.textContent=M;s.textContent=S;}
-tick();setInterval(tick,1000);
+const st=new Date(2023,6,22,20,0,0).getTime();
+function t(){let x=Date.now()-st,D=Math.floor(x/86400000);x%=86400000;let H=Math.floor(x/3600000);x%=3600000;let M=Math.floor(x/60000);x%=60000;let S=Math.floor(x/1000);d.textContent=D;h.textContent=H;m.textContent=M;s.textContent=S}
+t();setInterval(t,1000);
 </script></body></html>

@@ -9,7 +9,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #f4ece1; /* Теплий пастельний відтінок */
+            background-color: #f4ece1; /* Теплий пастельний колір */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #4a3e3d;
             display: flex;
@@ -20,89 +20,131 @@
             text-align: center;
         }
 
-        /* Контейнер для контенту */
+        /* Контейнер для вмісту */
         .container {
-            max-width: 600px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.6); /* Напівпрозора біла плашка */
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.65); /* Напівпрозора плашка */
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
             backdrop-filter: blur(10px);
             margin: 20px;
         }
 
-        /* Стиль для фотографій, щоб вони НЕ розтягувалися */
+        /* Красива сітка для фотографій, щоб вони НЕ розтягувалися */
         .photo-gallery {
             display: flex;
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            max-height: 400px; /* Обмежує висоту блоку, якщо фото багато */
+            overflow-y: auto; /* Додає прокрутку всередині блоку, якщо треба */
+            padding: 10px;
         }
 
         .photo-gallery img {
-            width: 250px;
-            height: 250px;
-            object-fit: cover; /* Фото обрізається по центру, зберігаючи пропорції */
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 5px solid white;
+            width: 180px;
+            height: 180px;
+            object-fit: cover; /* Фото обрізається рівно по центру, пропорції ідеальні */
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 4px solid white;
+            transition: transform 0.2s ease;
+        }
+
+        .photo-gallery img:hover {
+            transform: scale(1.05); /* Легке збільшення при наведенні */
         }
 
         /* Заголовок */
         h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+            font-size: 2rem;
+            margin-bottom: 15px;
             color: #7c625c;
             font-weight: 600;
         }
 
-        /* Таймер */
-        #timer {
-            font-size: 1.3rem;
+        /* Таймер відліку */
+        .timer-box {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .timer-item {
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            font-size: 1.1rem;
             font-weight: bold;
             color: #5c4a45;
-            background: #fff;
-            padding: 15px 25px;
-            border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-            display: inline-block;
-            margin-top: 15px;
+            min-width: 80px;
+        }
+
+        .timer-item span {
+            display: block;
+            font-size: 1.6rem;
+            color: #b08d86;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Галерея фотографій -->
+        <!-- Галерея фотографій (усі твої файли тут) -->
         <div class="photo-gallery">
-            <!-- Тут вкажи назви своїх файлів фотографій (наприклад, IMG_2026...jpg) -->
-            <img src="IMG_20260128_084242_081.jpg" alt="Ми разом 1">
-            <img src="IMG_20260128_084247_724.jpg" alt="Ми разом 2">
+            <img src="IMG_20260128_084242_031.jpg" alt="Фото">
+            <img src="IMG_20260128_084245_247.jpg" alt="Фото">
+            <img src="IMG_20260128_084847_734.jpg" alt="Фото">
+            <img src="IMG_20260128_090030_703.jpg" alt="Фото">
+            <img src="IMG_20260128_090226_373.JPG" alt="Фото">
+            <img src="IMG_20260128_090627_041.jpg" alt="Фото">
+            <img src="IMG_20260310_113333_379.jpg" alt="Фото">
+            <img src="IMG_20250420_090924_955.JPG" alt="Фото">
+            <img src="IMG_20250420_090942_442.JPG" alt="Фото">
+            <img src="5789907354765084160_121.jpg" alt="Фото">
+            <img src="5789907354765084165_121.jpg" alt="Фото">
         </div>
 
         <h1>Ми разом вже:</h1>
         
-        <!-- Таймер -->
-        <div id="timer">Завантаження...</div>
+        <!-- Красивий розділений таймер -->
+        <div class="timer-box" id="timer">
+            <div class="timer-item"><span id="days">0</span>днів</div>
+            <div class="timer-item"><span id="hours">0</span>годин</div>
+            <div class="timer-item"><span id="minutes">0</span>хвилин</div>
+            <div class="timer-item"><span id="seconds">0</span>секунд</div>
+        </div>
     </div>
 
     <script>
-        // Встанови тут вашу дату початку стосунків (Рік, Місяць-1, День, Години, Хвилини)
-        // Увага: місяці рахуються з 0 (січень - 0, лютий - 1 і т.д.)
-        const startDate = new Date(2023, 4, 15, 12, 0, 0); // Приклад: 15 травня 2023 року
+        // ВСТАВ СЮДИ ВАШУ ДАТУ: (Рік, Місяць, День, Година, Хвилина)
+        // УВАГА: Місяці рахуються з 0! (0 - січень, 1 - лютий, 2 - березень, 3 - квітень, 4 - травень і т.д.)
+        // Зараз встановлено приклад: 15 травня 2024 року
+        const startDate = new Date(2024, 4, 15, 0, 0, 0); 
 
         function updateTimer() {
             const now = new Date();
             const difference = now - startDate;
+
+            if (difference < 0) {
+                document.getElementById('timer').innerHTML = "Дата у майбутньому";
+                return;
+            }
 
             const days = Math.floor(difference / (1000 * 60 * 60 * 24));
             const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-            document.getElementById('timer').innerHTML = 
-                `${days} днів, ${hours} годин, ${minutes} хвилин, ${seconds} секунд`;
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
         }
 
         setInterval(updateTimer, 1000);

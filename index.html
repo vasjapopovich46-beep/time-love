@@ -1,69 +1,50 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ми разом вже ❤️</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;overflow:hidden;background:#000}
-#bg{position:fixed;inset:0;background-size:cover;background-position:center;transition:opacity 1s}
-#bg::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35)}
-.card{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);
-background:rgba(255,255,255,.18);backdrop-filter:blur(12px);
-padding:25px;border-radius:20px;color:#fff;text-align:center;width:min(92%,700px)}
-h1{font-size:2rem;margin-bottom:20px}
-.timer{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.item{background:rgba(255,255,255,.2);padding:12px 16px;border-radius:12px;min-width:90px}
-.item span{display:block;font-size:1.8rem;font-weight:bold}
+html,body{margin:0;height:100%;font-family:Arial,sans-serif;overflow:hidden}
+#bg{position:fixed;inset:0;background:center/cover no-repeat;transition:opacity 1s}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.35)}
+.panel{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);
+background:rgba(255,255,255,.18);backdrop-filter:blur(14px);border-radius:20px;
+padding:24px;color:#fff;text-align:center;width:min(92%,700px)}
+h1{margin:0 0 18px;font-size:2rem}
+.row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.box{background:rgba(255,255,255,.15);padding:12px 18px;border-radius:14px;min-width:90px}
+.num{font-size:1.8rem;font-weight:bold}
 </style>
 </head>
 <body>
-<div id="bg"></div>
-<div class="card">
+<div id="bg"></div><div id="overlay"></div>
+<div class="panel">
 <h1>❤️ Ми разом вже:</h1>
-<div class="timer">
-<div class="item"><span id="days"></span>днів</div>
-<div class="item"><span id="hours"></span>годин</div>
-<div class="item"><span id="minutes"></span>хвилин</div>
-<div class="item"><span id="seconds"></span>секунд</div>
-</div>
-</div>
+<div class="row">
+<div class="box"><div id="d" class="num">0</div>днів</div>
+<div class="box"><div id="h" class="num">0</div>годин</div>
+<div class="box"><div id="m" class="num">0</div>хвилин</div>
+<div class="box"><div id="s" class="num">0</div>секунд</div>
+</div></div>
 <script>
 const photos=[
-"IMG_20260128_084242_031.jpg",
-"IMG_20260128_084245_247.jpg",
-"IMG_20260128_084847_734.jpg",
-"IMG_20260128_090030_703.jpg",
-"IMG_20260128_090226_373.JPG",
-"IMG_20260128_090627_041.jpg",
-"IMG_20260310_113333_379.jpg",
-"IMG_20250420_090924_955.JPG",
-"IMG_20250420_090942_442.JPG",
-"5789907354765084160_121.jpg",
-"5789907354765084165_121.jpg"];
-let i=0;
-const bg=document.getElementById("bg");
-function change(){bg.style.opacity=0;setTimeout(()=>{bg.style.backgroundImage=`url('${photos[i]}')`;bg.style.opacity=1;i=(i+1)%photos.length;},500);}
-change();setInterval(change,5000);
-
-const startDate=new Date(2023,6,22,20,0,0);
-function upd(){
-const d=new Date()-startDate;
-const days=Math.floor(d/86400000);
-const hours=Math.floor(d%86400000/3600000);
-const minutes=Math.floor(d%3600000/60000);
-const seconds=Math.floor(d%60000/1000);
-daysEl.textContent=days;
-hoursEl.textContent=hours;
-minutesEl.textContent=minutes;
-secondsEl.textContent=seconds;
+"IMG_20260128_084242_031.jpg","IMG_20260128_084245_247.jpg","IMG_20260128_084847_734.jpg",
+"IMG_20260128_090030_703.jpg","IMG_20260128_090226_373.JPG","IMG_20260128_090627_041.jpg",
+"IMG_20260310_113333_379.jpg","IMG_20250420_090924_955.JPG","IMG_20250420_090942_442.JPG",
+"5789907354765084160_121.jpg","5789907354765084165_121.jpg"];
+let i=0,bg=document.getElementById("bg");
+function show(){bg.style.opacity=0;setTimeout(()=>{bg.style.backgroundImage="url('"+photos[i]+"')";bg.style.opacity=1;i=(i+1)%photos.length;},300)}
+show();setInterval(show,5000);
+const start=new Date(2023,6,22,20,0,0);
+function tick(){
+let x=Date.now()-start.getTime();
+let days=Math.floor(x/86400000);x%=86400000;
+let hrs=Math.floor(x/3600000);x%=3600000;
+let mins=Math.floor(x/60000);x%=60000;
+let secs=Math.floor(x/1000);
+d.textContent=days;h.textContent=hrs;m.textContent=mins;s.textContent=secs;
 }
-const daysEl=document.getElementById("days");
-const hoursEl=document.getElementById("hours");
-const minutesEl=document.getElementById("minutes");
-const secondsEl=document.getElementById("seconds");
-upd();setInterval(upd,1000);
+tick();setInterval(tick,1000);
 </script>
-</body>
-</html>
+</body></html>

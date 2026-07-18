@@ -17,7 +17,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#000;font-family:syste
 <div class="box"><div id="s" class="num"></div>секунд</div>
 </div></div>
 <script>
-const photos=["5789907354765084160_121.jpg","5789907354765084165_121.jpg","IMG_20250420_090924_955.JPG","IMG_20250420_090942_442.JPG","IMG_20260128_084242_031.jpg","IMG_20260128_084245_247.jpg","IMG_20260128_084847_734.jpg","IMG_20260128_090030_703.jpg","IMG_20260128_090226_373.JPG","IMG_20260128_090627_041.jpg","IMG_20260310_113333_379.jpg"];
+const photos=["IMG_20250420_090924_955.JPG","5789907354765084165_121.jpg","5789907354765084160_121.jpg","IMG_20250420_090942_442.JPG","IMG_20260128_084242_031.jpg","IMG_20260128_084245_247.jpg","IMG_20260128_084847_734.jpg","IMG_20260128_090030_703.jpg","IMG_20260128_090226_373.JPG","IMG_20260128_090627_041.jpg","IMG_20260310_113333_379.jpg"];
 let i=0;const im=document.getElementById('img'),bl=document.getElementById('blur');
 function show(){const p="./"+photos[i];im.src=p;bl.style.backgroundImage="url('"+p+"')";i=(i+1)%photos.length}
 show();setInterval(show,5000);
